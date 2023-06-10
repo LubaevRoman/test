@@ -1,95 +1,21 @@
-from src.HW_4 import (
-    list_filtering,
-    get_unique_id,
-    get_sales,
-    get_distribution,
-    sort_dict,
-)
-from unittest import TestCase
-from parameterized import parameterized
-import pytest
+# Домашнее задание к лекции 4.«Tests»
 
+### Задача №1 unit-tests
+Из курса «Python: программирование на каждый день и сверхбыстрое прототипирование» нужно написать тесты на любые 3 задания из [Лекции 4](https://github.com/netology-code/py-homeworks-basic/tree/master/4.collections).
+Необходимо использовать своё решение домашнего задания.
 
-class Test_Add_Unittest(TestCase):
-    def test_list_filtering(self):
-        expected = {
-            "visit1": ["Москва", "Россия"],
-            "visit3": ["Владимир", "Россия"],
-            "visit7": ["Тула", "Россия"],
-            "visit8": ["Тула", "Россия"],
-            "visit9": ["Курск", "Россия"],
-            "visit10": ["Архангельск", "Россия"],
-        }
-        geo_logs = list_filtering()
-        result = {}
-        for i in geo_logs:
-            for key, value in i.items():
-                result[key] = value
-        self.assertEqual(result, expected)
+* При написании тестов не забывайте использовать параметризацию.
+  
+Рекомендации по тестам.
+1. Если у вас в функциях информация выводилась(print), то теперь её лучше возвращать(return) чтобы можно было протестировать.
 
-    def test_get_unique_id(self):
-        result = get_unique_id()
-        expected = [15, 35, 54, 98, 119, 213]
-        self.assertEqual(result, expected)
+### Задача №2 Автотест API Яндекса
+Проверим правильность работы Яндекс.Диск REST API. Написать тесты, проверяющий создание папки на Диске.  
+Используя библиотеку requests напишите unit-test на верный ответ и возможные отрицательные тесты на ответы с ошибкой
 
-    def test_get_sales(self):
-        result = get_sales()
-        expected = "yandex"
-        self.assertEqual(result, expected)
+Пример положительных тестов:
+* Код ответа соответствует 200.
+* Результат создания папки - папка появилась в списке файлов.
 
-    def test_get_distribution(self):
-        result = get_distribution()
-        expected = [("2", "42.9"), ("3", "57.1")]
-        self.assertEqual(result, expected)
-
-    def test_sort_dict(self):
-        result = sort_dict()
-        expected = {
-            "2018-01-01": {
-                "yandex": {"cpc": {100: {400: {"kek": {2022: "Hello World"}}}}}
-            }
-        }
-        self.assertEqual(result, expected)
-
-
-class Test_HW_4_Pytest:
-    @pytest.mark.parametrize(
-        "expected",
-        (
-            {
-                "visit1": ["Москва", "Россия"],
-                "visit3": ["Владимир", "Россия"],
-                "visit7": ["Тула", "Россия"],
-                "visit8": ["Тула", "Россия"],
-                "visit9": ["Курск", "Россия"],
-                "visit10": ["Архангельск", "Россия"],
-            },
-        ),
-    )
-    def test_list_filtering(self, expected):
-        geo_logs = list_filtering()
-        result = {}
-        for i in geo_logs:
-            for key, value in i.items():
-                result[key] = value
-        assert result == expected
-
-    def test_get_unique_id(self):
-        result = get_unique_id()
-        assert result == [15, 35, 54, 98, 119, 213]
-
-    def test_get_sales(self):
-        result = get_sales()
-        assert result == "yandex"
-
-    def test_get_distribution(self):
-        result = get_distribution()
-        assert result == [("2", "42.9"), ("3", "57.1")]
-
-    def test_sort_dict(self):
-        result = sort_dict()
-        assert result == {
-            "2018-01-01": {
-                "yandex": {"cpc": {100: {400: {"kek": {2022: "Hello World"}}}}}
-            }
-        }
+### Задача №3. Дополнительная (не обязательная)
+Применив selenium, напишите unit-test для авторизации на Яндексе по url: https://passport.yandex.ru/auth/
